@@ -1,8 +1,8 @@
 namespace DankBot
 {
-    using System;
     using System.Text;
     using System.Threading;
+    using NLog;
     using Telegram.Bot;
     using Telegram.Bot.Args;
     using Telegram.Bot.Types;
@@ -10,11 +10,13 @@ namespace DankBot
 
     public class DankBot
     {
+        private readonly ILogger _logger;
         private readonly ITelegramBotClient _botClient;
         private readonly User _me;
 
-        public DankBot(string token)
+        public DankBot(ILogger logger, string token)
         {
+            _logger = logger;
             _botClient = new TelegramBotClient(token);
             _me = _botClient.GetMeAsync().Result;
             _botClient.OnUpdate += OnUpdateHandler;
@@ -29,7 +31,7 @@ namespace DankBot
                 return;
             }
 
-            Console.WriteLine($"{message.Type} message received from {this.UserToString(message.From)} in chat ID {message.Chat.Id}.");
+            _logger.Info($"{message.Type} message received from {this.UserToString(message.From)} in chat ID {message.Chat.Id}.");
 
             switch (message.Type)
             {
@@ -46,7 +48,7 @@ namespace DankBot
         {
             if (message?.Text != null)
             {
-                Console.WriteLine($"{this.UserToString(message.From)}: {message.Text}");
+                _logger.Info($"{this.UserToString(message.From)}: {message.Text}");
             }
         }
 
@@ -61,9 +63,11 @@ namespace DankBot
                         continue;
                     }
 
+                    _logger.Info($"{this.UserToString(user)} joined. Date is {message.Date}.");
+
                     if (user.IsBot)
                     {
-                        Console.WriteLine($"Bot {this.UserToString(user)} joined. Date is {message.Date}.");
+                        _logger.Info($"{this.UserToString(user)} is a bot!!1");
                         //await _botClient.KickChatMemberAsync()
                     }
                 }
@@ -88,6 +92,7 @@ namespace DankBot
             {
                 userString.Append($" (@{user.Username})");
             }
+            userString.Append($" [{user.Id}]");
             return userString.ToString();
         }
     }
