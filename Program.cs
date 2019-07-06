@@ -1,7 +1,7 @@
 ﻿namespace DankBot
 {
     using System;
-
+    using global::DankBot.Domain;
     using NLog;
     using NLog.Config;
     using NLog.Targets;
