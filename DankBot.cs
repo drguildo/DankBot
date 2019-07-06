@@ -16,11 +16,13 @@ namespace DankBot
         private readonly ITelegramBotClient _botClient;
         private readonly User _me;
 
-        public DankBot(ILogger logger, string token)
+        public DankBot(ITelegramBotClient botClient, ILogger logger)
         {
+            _botClient = botClient;
             _logger = logger;
-            _botClient = new TelegramBotClient(token);
+
             _me = _botClient.GetMeAsync().Result;
+
             _botClient.OnUpdate += OnUpdateHandler;
         }
 
