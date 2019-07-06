@@ -2,7 +2,9 @@ namespace DankBot
 {
     using System.Text;
     using System.Threading;
+
     using NLog;
+
     using Telegram.Bot;
     using Telegram.Bot.Args;
     using Telegram.Bot.Types;
@@ -38,6 +40,7 @@ namespace DankBot
                 case MessageType.ChatMembersAdded:
                     this.ProcessChatMembersAddedMessage(message);
                     break;
+
                 case MessageType.Text:
                     this.ProcessTextMessage(message);
                     break;
@@ -83,16 +86,21 @@ namespace DankBot
         private string UserToString(User user)
         {
             var userString = new StringBuilder();
+
             userString.Append(user.FirstName);
+
             if (!string.IsNullOrWhiteSpace(user.LastName))
             {
-                userString.Append($" {user.LastName}");
+                userString.Append(' ').Append(user.LastName);
             }
+
             if (!string.IsNullOrWhiteSpace(user.Username))
             {
-                userString.Append($" (@{user.Username})");
+                userString.Append(" (").Append(user.Username).Append(')');
             }
-            userString.Append($" [{user.Id}]");
+
+            userString.Append(" [").Append(user.Id).Append(']');
+
             return userString.ToString();
         }
     }

@@ -1,20 +1,23 @@
 ﻿namespace DankBot
 {
     using System;
-    using NLog;
 
-    sealed class Program
+    using NLog;
+    using NLog.Config;
+    using NLog.Targets;
+
+    internal sealed class Program
     {
         private const string DankBotTokenEnvironmentVariable = "DANKBOT_TOKEN";
 
-        static void Main(string[] args)
+        private static void Main()
         {
-            var nlogConfig = new NLog.Config.LoggingConfiguration();
-            var nlogConsole = new NLog.Targets.ColoredConsoleTarget("logconsole");
+            var nlogConfig = new LoggingConfiguration();
+            var nlogConsole = new ColoredConsoleTarget("logconsole");
             nlogConfig.AddRule(LogLevel.Info, LogLevel.Fatal, nlogConsole);
-            NLog.LogManager.Configuration = nlogConfig;
+            LogManager.Configuration = nlogConfig;
 
-            ILogger logger = NLog.LogManager.GetLogger("DankBot");
+            ILogger logger = LogManager.GetLogger("DankBot");
 
             logger.Info("DankBot is starting.");
 
