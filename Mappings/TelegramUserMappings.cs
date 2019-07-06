@@ -10,8 +10,8 @@
         public TelegramUserMappings()
         {
             Id(e => e.Id, mapper => mapper.Generator(Generators.Assigned));
-            Property(e => e.IsBot);
-            Property(e => e.FirstName);
+            Property(e => e.IsBot, mapper => mapper.NotNullable(true));
+            Property(e => e.FirstName, mapper => mapper.NotNullable(true));
             Property(e => e.LastName);
             Property(e => e.Username);
         }
