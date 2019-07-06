@@ -28,19 +28,23 @@
             }).AddMapping(this.GetMappings());
 
             var sessionFactory = cfg.BuildSessionFactory();
-            this.Session = sessionFactory.OpenSession();
+            var session = sessionFactory.OpenSession();
 
-            using (var transaction = this.Session.BeginTransaction())
+            using (var transaction = session.BeginTransaction())
             {
                 new SchemaExport(cfg).Execute(
                 useStdOut: true,
                 execute: true,
                 justDrop: false,
-                connection: this.Session.Connection,
+                connection: session.Connection,
                 exportOutput: System.Console.Out);
+
                 transaction.Commit();
             }
-            this.Session.Clear();
+
+            session.Clear();
+
+            this.Session = session;
         }
 
         private HbmMapping GetMappings()
