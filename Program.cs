@@ -8,6 +8,9 @@
 
     using Telegram.Bot;
 
+    using global::DankBot.Domain;
+    using global::DankBot.Repositories;
+
     internal sealed class Program
     {
         private const string DankBotTokenEnvironmentVariable = "DANKBOT_TOKEN";
@@ -29,9 +32,10 @@
             }
 
             var session = NHibernateHelper.Session;
+            ITelegramUserRepository telegramUserRepository = new TelegramUserRepository(session);
 
             var botClient = new TelegramBotClient(dankBotToken);
-            var dankBot = new DankBot(botClient, session, logger);
+            var dankBot = new DankBot(botClient, logger, telegramUserRepository);
             dankBot.Run();
         }
     }

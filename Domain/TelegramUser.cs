@@ -1,6 +1,6 @@
 ﻿namespace DankBot.Domain
 {
-    internal class TelegramUser
+    public class TelegramUser
     {
         public virtual int Id { get; set; }
         public virtual bool IsBot { get; set; }

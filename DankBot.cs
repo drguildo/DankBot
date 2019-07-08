@@ -2,7 +2,7 @@ namespace DankBot
 {
     using System.Text;
     using System.Threading;
-    using NHibernate;
+
     using NLog;
 
     using Telegram.Bot;
@@ -10,18 +10,23 @@ namespace DankBot
     using Telegram.Bot.Types;
     using Telegram.Bot.Types.Enums;
 
+    using global::DankBot.Domain;
+
     public class DankBot
     {
         private readonly ITelegramBotClient _botClient;
-        private readonly ISession _session;
         private readonly ILogger _logger;
+        private readonly ITelegramUserRepository _telegramUserRepository;
         private readonly User _me;
 
-        public DankBot(ITelegramBotClient botClient, ISession session, ILogger logger)
+        public DankBot(
+            ITelegramBotClient botClient,
+            ILogger logger,
+            ITelegramUserRepository telegramUserRepository)
         {
             _botClient = botClient;
-            _session = session;
             _logger = logger;
+            _telegramUserRepository = telegramUserRepository;
 
             _me = _botClient.GetMeAsync().Result;
 
