@@ -12,10 +12,14 @@
 
     public class NHibernateHelper
     {
-        public ISession Session { get; }
+        public static ISession Session { get; }
 
-        public NHibernateHelper()
+        static NHibernateHelper()
         {
+            var mapper = new ModelMapper();
+            mapper.AddMapping<TelegramUserMappings>();
+            HbmMapping mappings = mapper.CompileMappingForAllExplicitlyAddedEntities();
+
             var cfg = new Configuration();
             cfg.DataBaseIntegration(db =>
             {
@@ -25,7 +29,7 @@
                 db.ConnectionReleaseMode = ConnectionReleaseMode.OnClose;
                 db.LogSqlInConsole = true;
                 db.LogFormattedSql = true;
-            }).AddMapping(this.GetMappings());
+            }).AddMapping(mappings);
 
             var sessionFactory = cfg.BuildSessionFactory();
             var session = sessionFactory.OpenSession();
@@ -44,14 +48,7 @@
 
             session.Clear();
 
-            this.Session = session;
-        }
-
-        private HbmMapping GetMappings()
-        {
-            var mapper = new ModelMapper();
-            mapper.AddMapping<TelegramUserMappings>();
-            return mapper.CompileMappingForAllExplicitlyAddedEntities();
+            NHibernateHelper.Session = session;
         }
     }
 }

@@ -28,7 +28,7 @@
                 Environment.Exit(-1);
             }
 
-            var session = new NHibernateHelper().Session;
+            var session = NHibernateHelper.Session;
 
             var botClient = new TelegramBotClient(dankBotToken);
             var dankBot = new DankBot(botClient, session, logger);
