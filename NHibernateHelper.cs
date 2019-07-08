@@ -10,7 +10,7 @@
     using NHibernate.Mapping.ByCode;
     using NHibernate.Tool.hbm2ddl;
 
-    public class NHibernateHelper
+    public static class NHibernateHelper
     {
         public static ISession Session { get; }
 
