@@ -75,7 +75,6 @@ namespace DankBot
                     if (user.IsBot)
                     {
                         _logger.Info($"{this.UserToString(user)} is a bot!!1");
-                        //await _botClient.KickChatMemberAsync()
                     }
                 }
             }
