@@ -58,9 +58,28 @@ namespace DankBot
 
         private void ProcessTextMessage(Message message)
         {
-            if (message?.Text != null)
+            if (message == null)
+            {
+                return;
+            }
+
+            if (message.Text != null)
             {
                 _logger.Info($"{this.UserToString(message.From)}: {message.Text}");
+            }
+
+            if (message.Entities != null)
+            {
+                foreach (var entity in message.Entities)
+                {
+                    _logger.Info($"{entity.Type} entity");
+
+                    if (entity.Type == MessageEntityType.BotCommand)
+                    {
+                        string cmd = message.Text.Substring(entity.Offset, entity.Length);
+                        _logger.Info($"Command: {cmd}");
+                    }
+                }
             }
         }
 
