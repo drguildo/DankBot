@@ -17,7 +17,7 @@
         static NHibernateHelper()
         {
             var mapper = new ModelMapper();
-            mapper.AddMapping<TelegramUserMappings>();
+            mapper.AddMapping<AdminMappings>();
             HbmMapping mappings = mapper.CompileMappingForAllExplicitlyAddedEntities();
 
             var cfg = new Configuration();

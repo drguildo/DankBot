@@ -32,10 +32,10 @@
             }
 
             var session = NHibernateHelper.Session;
-            ITelegramUserRepository telegramUserRepository = new TelegramUserRepository(session);
+            IAdminRepository adminRepository = new AdminRepository(session);
 
             var botClient = new TelegramBotClient(dankBotToken);
-            var dankBot = new DankBot(botClient, logger, telegramUserRepository);
+            var dankBot = new DankBot(botClient, logger, adminRepository);
             dankBot.Run();
         }
     }

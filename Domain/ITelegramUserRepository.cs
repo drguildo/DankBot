@@ -1,8 +1,8 @@
 namespace DankBot.Domain
 {
-    public interface ITelegramUserRepository
+    public interface IAdminRepository
     {
-        void Add(TelegramUser telegramUser);
-        TelegramUser GetById(int id);
+        void Add(Admin admin);
+        Admin GetById(int id);
     }
 }

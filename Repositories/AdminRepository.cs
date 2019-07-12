@@ -4,27 +4,27 @@ namespace DankBot.Repositories
 
     using global::DankBot.Domain;
 
-    class TelegramUserRepository : ITelegramUserRepository
+    class AdminRepository : IAdminRepository
     {
         private readonly ISession _session;
 
-        public TelegramUserRepository(ISession session)
+        public AdminRepository(ISession session)
         {
             _session = session;
         }
 
-        public void Add(TelegramUser telegramUser)
+        public void Add(Admin admin)
         {
             using (var transaction = _session.BeginTransaction())
             {
-                _session.Save(telegramUser);
+                _session.Save(admin);
                 transaction.Commit();
             }
         }
 
-        public TelegramUser GetById(int id)
+        public Admin GetById(int id)
         {
-            return _session.Get<TelegramUser>(id);
+            return _session.Get<Admin>(id);
         }
     }
 }

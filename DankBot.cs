@@ -16,17 +16,17 @@ namespace DankBot
     {
         private readonly ITelegramBotClient _botClient;
         private readonly ILogger _logger;
-        private readonly ITelegramUserRepository _telegramUserRepository;
-        private readonly User _me;
+        private readonly IAdminRepository _adminRepository;
+        private readonly Telegram.Bot.Types.User _me;
 
         public DankBot(
             ITelegramBotClient botClient,
             ILogger logger,
-            ITelegramUserRepository telegramUserRepository)
+            IAdminRepository adminRepository)
         {
             _botClient = botClient;
             _logger = logger;
-            _telegramUserRepository = telegramUserRepository;
+            _adminRepository = adminRepository;
 
             _me = _botClient.GetMeAsync().Result;
 
@@ -68,7 +68,7 @@ namespace DankBot
         {
             if (message?.NewChatMembers != null)
             {
-                foreach (User user in message.NewChatMembers)
+                foreach (Telegram.Bot.Types.User user in message.NewChatMembers)
                 {
                     if (user.Id == _me.Id)
                     {
@@ -91,7 +91,7 @@ namespace DankBot
             Thread.Sleep(Timeout.Infinite);
         }
 
-        private string UserToString(User user)
+        private string UserToString(Telegram.Bot.Types.User user)
         {
             var userString = new StringBuilder();
 
