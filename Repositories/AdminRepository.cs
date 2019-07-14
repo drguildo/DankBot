@@ -1,30 +1,27 @@
 namespace DankBot.Repositories
 {
-    using NHibernate;
+    using LiteDB;
 
     using global::DankBot.Domain;
 
     class AdminRepository : IAdminRepository
     {
-        private readonly ISession _session;
+        private readonly LiteCollection<Admin> _collection;
 
-        public AdminRepository(ISession session)
+        public AdminRepository(string connectionString)
         {
-            _session = session;
+            var db = new LiteDatabase(connectionString);
+            _collection = db.GetCollection<Admin>("admins");
         }
 
         public void Add(Admin admin)
         {
-            using (var transaction = _session.BeginTransaction())
-            {
-                _session.Save(admin);
-                transaction.Commit();
-            }
+            _collection.Insert(admin);
         }
 
         public Admin GetById(int id)
         {
-            return _session.Get<Admin>(id);
+            return _collection.FindById(id);
         }
     }
 }

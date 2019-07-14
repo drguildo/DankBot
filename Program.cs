@@ -15,6 +15,8 @@
     {
         private const string DankBotTokenEnvironmentVariable = "DANKBOT_TOKEN";
 
+        private const string DankBotDbName = "DankBot.db";
+
         private static void Main()
         {
             var nlogConfig = new LoggingConfiguration();
@@ -31,8 +33,7 @@
                 Environment.Exit(-1);
             }
 
-            var session = NHibernateHelper.Session;
-            IAdminRepository adminRepository = new AdminRepository(session);
+            IAdminRepository adminRepository = new AdminRepository(DankBotDbName);
 
             var botClient = new TelegramBotClient(dankBotToken);
             var dankBot = new DankBot(botClient, logger, adminRepository);

@@ -2,6 +2,6 @@
 {
     public class Admin
     {
-        public virtual int TelegramId { get; set; }
+        public int TelegramId { get; set; }
     }
 }
