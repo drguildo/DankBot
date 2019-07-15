@@ -1,10 +1,10 @@
 namespace DankBot.Repositories
 {
-    using LiteDB;
-
     using global::DankBot.Domain;
 
-    class AdminRepository : IAdminRepository
+    using LiteDB;
+
+    internal class AdminRepository : IAdminRepository
     {
         private readonly LiteCollection<Admin> _collection;
 
