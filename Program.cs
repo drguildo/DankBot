@@ -2,14 +2,14 @@
 {
     using System;
 
+    using global::DankBot.Domain;
+    using global::DankBot.Repositories;
+
     using NLog;
     using NLog.Config;
     using NLog.Targets;
 
     using Telegram.Bot;
-
-    using global::DankBot.Domain;
-    using global::DankBot.Repositories;
 
     internal sealed class Program
     {

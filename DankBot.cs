@@ -3,6 +3,8 @@ namespace DankBot
     using System.Text;
     using System.Threading;
 
+    using global::DankBot.Domain;
+
     using NLog;
 
     using Telegram.Bot;
@@ -10,14 +12,12 @@ namespace DankBot
     using Telegram.Bot.Types;
     using Telegram.Bot.Types.Enums;
 
-    using global::DankBot.Domain;
-
     public class DankBot
     {
         private readonly ITelegramBotClient _botClient;
         private readonly ILogger _logger;
         private readonly IAdminRepository _adminRepository;
-        private readonly Telegram.Bot.Types.User _me;
+        private readonly User _me;
 
         public DankBot(
             ITelegramBotClient botClient,
@@ -87,7 +87,7 @@ namespace DankBot
         {
             if (message?.NewChatMembers != null)
             {
-                foreach (Telegram.Bot.Types.User user in message.NewChatMembers)
+                foreach (User user in message.NewChatMembers)
                 {
                     if (user.Id == _me.Id)
                     {
@@ -110,7 +110,7 @@ namespace DankBot
             Thread.Sleep(Timeout.Infinite);
         }
 
-        private string UserToString(Telegram.Bot.Types.User user)
+        private string UserToString(User user)
         {
             var userString = new StringBuilder();
 
