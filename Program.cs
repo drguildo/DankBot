@@ -36,7 +36,7 @@
             IAdminRepository adminRepository = new AdminRepository(DankBotDbName);
 
             var botClient = new TelegramBotClient(dankBotToken);
-            var dankBot = new DankBot(botClient, logger, adminRepository);
+            var dankBot = new DankBot(botClient, logger);
             dankBot.Run();
         }
     }
