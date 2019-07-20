@@ -4,7 +4,7 @@
 
     using global::DankBot.Domain.Handlers;
 
-    using NLog;
+    using Serilog;
 
     using Telegram.Bot;
     using Telegram.Bot.Types;
@@ -27,11 +27,11 @@
 
         public void Handle(Message message)
         {
-            _logger.Info($"{message.Type} message received from {MessageHandler.UserToString(message.From)} in chat ID {message.Chat.Id}.");
+            _logger.Information($"{message.Type} message received from {MessageHandler.UserToString(message.From)} in chat ID {message.Chat.Id}.");
 
             if (!_lookup.TryGetValue(message.Type, out MessageHandler handler))
             {
-                _logger.Warn($"No handler found for message type {message.Type}");
+                _logger.Warning($"No handler found for message type {message.Type}");
             }
             else
             {

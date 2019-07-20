@@ -5,9 +5,7 @@
     using global::DankBot.Domain;
     using global::DankBot.Repositories;
 
-    using NLog;
-    using NLog.Config;
-    using NLog.Targets;
+    using Serilog;
 
     using Telegram.Bot;
 
@@ -19,12 +17,10 @@
 
         private static void Main()
         {
-            var nlogConfig = new LoggingConfiguration();
-            var nlogConsole = new ColoredConsoleTarget("logconsole");
-            nlogConfig.AddRule(LogLevel.Info, LogLevel.Fatal, nlogConsole);
-            LogManager.Configuration = nlogConfig;
-            ILogger logger = LogManager.GetLogger("DankBot");
-            logger.Info("DankBot is starting.");
+            ILogger logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .CreateLogger();
+            logger.Information("DankBot is starting.");
 
             string dankBotToken = Environment.GetEnvironmentVariable(DankBotTokenEnvironmentVariable);
             if (dankBotToken == null)

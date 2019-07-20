@@ -1,6 +1,6 @@
 ﻿namespace DankBot.Domain.Handlers
 {
-    using NLog;
+    using Serilog;
 
     using Telegram.Bot;
     using Telegram.Bot.Types;
@@ -26,19 +26,19 @@
 
             if (message.Text != null)
             {
-                _logger.Info($"{MessageHandler.UserToString(message.From)}: {message.Text}");
+                _logger.Information($"{MessageHandler.UserToString(message.From)}: {message.Text}");
             }
 
             if (message.Entities != null)
             {
                 foreach (var entity in message.Entities)
                 {
-                    _logger.Info($"{entity.Type} entity");
+                    _logger.Information($"{entity.Type} entity");
 
                     if (entity.Type == MessageEntityType.BotCommand)
                     {
                         string cmd = message.Text.Substring(entity.Offset, entity.Length);
-                        _logger.Info($"Command: {cmd}");
+                        _logger.Information($"Command: {cmd}");
                     }
                 }
             }

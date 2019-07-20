@@ -4,7 +4,7 @@ namespace DankBot
 
     using global::DankBot.Domain;
 
-    using NLog;
+    using Serilog;
 
     using Telegram.Bot;
     using Telegram.Bot.Args;

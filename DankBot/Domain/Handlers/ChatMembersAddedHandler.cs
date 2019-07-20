@@ -1,6 +1,6 @@
 ﻿namespace DankBot.Domain.Handlers
 {
-    using NLog;
+    using Serilog;
 
     using Telegram.Bot;
     using Telegram.Bot.Types;
@@ -31,11 +31,11 @@
                         continue;
                     }
 
-                    _logger.Info($"{MessageHandler.UserToString(user)} joined. Date is {message.Date}.");
+                    _logger.Information($"{MessageHandler.UserToString(user)} joined. Date is {message.Date}.");
 
                     if (user.IsBot)
                     {
-                        _logger.Info($"{MessageHandler.UserToString(user)} is a bot!!1");
+                        _logger.Information($"{MessageHandler.UserToString(user)} is a bot!!1");
                     }
                 }
             }
