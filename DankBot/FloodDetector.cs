@@ -6,21 +6,15 @@ namespace DankBot
 
     public class FloodDetector
     {
-        private class UserMessageTime
+        private struct UserMessageTime
         {
-            public int UserId { get; }
-            public DateTime When { get; }
-
-            public UserMessageTime(int userId, DateTime when)
-            {
-                UserId = userId;
-                When = when;
-            }
+            public int UserId { get; set; }
+            public DateTime When { get; set; }
         }
 
         private readonly uint _timeRangeInSeconds;
         private readonly uint _messageThreshold;
-        private readonly List<UserMessageTime> _userMessageTimes;
+        private List<UserMessageTime> _userMessageTimes;
 
         public FloodDetector(uint timeRangeInSeconds, uint messageThreshold)
         {
@@ -34,7 +28,11 @@ namespace DankBot
         {
             this.Prune();
 
-            _userMessageTimes.Add(new UserMessageTime(userId, when));
+            _userMessageTimes.Add(new UserMessageTime
+            {
+                UserId = userId,
+                When = when
+            });
         }
 
         public bool IsFlooding(int userId)
