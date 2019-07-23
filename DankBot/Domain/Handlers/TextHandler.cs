@@ -19,17 +19,12 @@
 
         public override void Handle(Message message)
         {
-            if (message == null)
-            {
-                return;
-            }
-
-            if (message.Text != null)
+            if (message?.Text != null)
             {
                 _logger.Information($"{MessageHandler.UserToString(message.From)}: {message.Text}");
             }
 
-            if (message.Entities != null)
+            if (message?.Entities != null)
             {
                 foreach (var entity in message.Entities)
                 {
