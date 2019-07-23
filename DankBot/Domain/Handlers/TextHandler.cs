@@ -19,6 +19,12 @@
 
         public override void Handle(Message message)
         {
+            if (message?.From.Id == _botClient.BotId)
+            {
+                // Don't process messages sent by us.
+                return;
+            }
+
             if (message?.Text != null)
             {
                 _logger.Information($"{MessageHandler.UserToString(message.From)}: {message.Text}");
