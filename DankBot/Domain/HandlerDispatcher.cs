@@ -12,11 +12,13 @@
 
     public class HandlerDispatcher
     {
+        private readonly MessageHandler _defaultHandler;
         private readonly Dictionary<MessageType, MessageHandler> _lookup;
         private readonly ILogger _logger;
 
         public HandlerDispatcher(ITelegramBotClient botClient, ILogger logger)
         {
+            _defaultHandler = new DefaultHandler(botClient, logger);
             _lookup = new Dictionary<MessageType, MessageHandler>
             {
                 { MessageType.ChatMembersAdded, new ChatMembersAddedHandler(botClient, logger) },
@@ -31,7 +33,7 @@
 
             if (!_lookup.TryGetValue(message.Type, out MessageHandler handler))
             {
-                _logger.Warning($"No handler found for message type {message.Type}");
+                _defaultHandler.Handle(message);
             }
             else
             {
