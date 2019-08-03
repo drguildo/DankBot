@@ -1,4 +1,4 @@
-﻿namespace DankBot.Domain.Handlers
+﻿namespace DankBot.Domain.MessageHandlers
 {
     using Serilog;
 

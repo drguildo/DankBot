@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    using global::DankBot.Domain.Handlers;
+    using global::DankBot.Domain.MessageHandlers;
 
     using Serilog;
 
