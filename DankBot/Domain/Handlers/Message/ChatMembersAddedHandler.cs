@@ -1,11 +1,11 @@
-﻿namespace DankBot.Domain.MessageHandlers
+﻿namespace DankBot.Domain.Handlers.Message
 {
     using Serilog;
 
     using Telegram.Bot;
     using Telegram.Bot.Types;
 
-    public class ChatMembersAddedHandler : MessageHandler
+    public class ChatMembersAddedHandler : IHandler<Message>
     {
         private readonly ITelegramBotClient _botClient;
         private readonly ILogger _logger;
@@ -20,7 +20,7 @@
             _myId = _botClient.GetMeAsync().Id;
         }
 
-        public override void Handle(Message message)
+        public void Handle(Message message)
         {
             if (message?.NewChatMembers != null)
             {
@@ -31,11 +31,11 @@
                         continue;
                     }
 
-                    _logger.Information($"{MessageHandler.UserToString(user)} joined. Date is {message.Date}.");
+                    _logger.Information($"{Helpers.UserToString(user)} joined. Date is {message.Date}.");
 
                     if (user.IsBot)
                     {
-                        _logger.Information($"{MessageHandler.UserToString(user)} is a bot!!1");
+                        _logger.Information($"{Helpers.UserToString(user)} is a bot!!1");
                     }
                 }
             }

@@ -1,4 +1,4 @@
-﻿namespace DankBot.Domain.MessageHandlers
+﻿namespace DankBot.Domain.Handlers.Message
 {
     using Serilog;
 
@@ -6,7 +6,7 @@
     using Telegram.Bot.Types;
     using Telegram.Bot.Types.Enums;
 
-    public class TextHandler : MessageHandler
+    public class TextHandler : IHandler<Message>
     {
         private readonly ITelegramBotClient _botClient;
         private readonly ILogger _logger;
@@ -17,7 +17,7 @@
             _logger = logger;
         }
 
-        public override void Handle(Message message)
+        public void Handle(Message message)
         {
             if (message?.From.Id == _botClient.BotId)
             {
@@ -27,7 +27,7 @@
 
             if (message?.Text != null)
             {
-                _logger.Information($"{MessageHandler.UserToString(message.From)}: {message.Text}");
+                _logger.Information($"{Helpers.UserToString(message.From)}: {message.Text}");
             }
 
             if (message?.Entities != null)

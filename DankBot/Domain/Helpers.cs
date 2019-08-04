@@ -1,11 +1,9 @@
-﻿namespace DankBot.Domain.MessageHandlers
+﻿namespace DankBot.Domain
 {
     using Telegram.Bot.Types;
 
-    public abstract class MessageHandler
+    internal static class Helpers
     {
-        public abstract void Handle(Message message);
-
         internal static string UserToString(User user)
         {
             var userString = new System.Text.StringBuilder();
