@@ -11,7 +11,7 @@
     using Telegram.Bot.Types;
     using Telegram.Bot.Types.Enums;
 
-    public class UpdateHandlerDispatcher
+    public class UpdateHandlerDispatcher : IHandlerDispatcher<Update>
     {
         private readonly IHandler<Update> _defaultHandler;
         private readonly Dictionary<UpdateType, IHandler<Update>> _lookup;
