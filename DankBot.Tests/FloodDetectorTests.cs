@@ -1,6 +1,5 @@
 namespace DankBot.Tests
 {
-    using System;
     using System.Linq;
 
     using Xunit;
@@ -17,7 +16,7 @@ namespace DankBot.Tests
 
             foreach (var i in Enumerable.Range(1, _threshold - 1))
             {
-                floodDetector.Add(_id, DateTime.Now);
+                floodDetector.Add(_id);
             }
 
             Assert.False(floodDetector.IsFlooding(_id));
@@ -30,7 +29,7 @@ namespace DankBot.Tests
 
             foreach (var i in Enumerable.Range(1, _threshold))
             {
-                floodDetector.Add(_id, DateTime.Now);
+                floodDetector.Add(_id);
             }
 
             Assert.True(floodDetector.IsFlooding(_id));
@@ -43,7 +42,7 @@ namespace DankBot.Tests
 
             foreach (var i in Enumerable.Range(1, _threshold + 1))
             {
-                floodDetector.Add(_id, DateTime.Now);
+                floodDetector.Add(_id);
             }
 
             Assert.True(floodDetector.IsFlooding(_id));

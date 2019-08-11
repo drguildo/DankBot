@@ -24,14 +24,14 @@ namespace DankBot
             _userMessageTimes = new List<UserMessageTime>();
         }
 
-        public void Add(int userId, DateTime when)
+        public void Add(int userId)
         {
             this.Prune();
 
             _userMessageTimes.Add(new UserMessageTime
             {
                 UserId = userId,
-                When = when
+                When = DateTime.Now
             });
         }
 
