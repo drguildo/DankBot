@@ -47,5 +47,23 @@ namespace DankBot.Tests
 
             Assert.True(floodDetector.IsFlooding(_id));
         }
+
+        [Fact]
+        public void FloodDetector_AddEqualToThresholdAfterTimeRange_ShouldNotBeFlagged()
+        {
+            var timeRange = 2u;
+            var floodDetector = new FloodDetector(timeRange, _threshold);
+
+            foreach (var i in Enumerable.Range(1, _threshold - 1))
+            {
+                floodDetector.Add(_id);
+            }
+
+            System.Threading.Thread.Sleep((int)timeRange * 1000);
+
+            floodDetector.Add(_id);
+
+            Assert.False(floodDetector.IsFlooding(_id));
+        }
     }
 }
