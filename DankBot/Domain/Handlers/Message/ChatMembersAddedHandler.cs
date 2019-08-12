@@ -1,5 +1,7 @@
 ﻿namespace DankBot.Domain.Handlers.Message
 {
+    using global::DankBot.Helpers;
+
     using Serilog;
 
     using Telegram.Bot;

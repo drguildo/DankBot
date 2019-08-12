@@ -1,4 +1,4 @@
-namespace DankBot
+namespace DankBot.Helpers
 {
     using System;
     using System.Collections.Generic;

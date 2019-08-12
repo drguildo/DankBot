@@ -2,6 +2,8 @@ namespace DankBot.Tests
 {
     using System.Linq;
 
+    using global::DankBot.Helpers;
+
     using Xunit;
 
     public class FloodDetectorTests

@@ -2,6 +2,8 @@ namespace DankBot.Tests
 {
     using System.Collections.Generic;
 
+    using global::DankBot.Helpers;
+
     using Xunit;
 
     public class UrlCheckerTests

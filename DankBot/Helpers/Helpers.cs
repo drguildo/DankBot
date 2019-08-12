@@ -1,8 +1,8 @@
-﻿namespace DankBot.Domain
+﻿namespace DankBot.Helpers
 {
     using Telegram.Bot.Types;
 
-    internal static class Helpers
+    public static class Helpers
     {
         internal static string UserToString(User user)
         {

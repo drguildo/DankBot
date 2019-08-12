@@ -27,7 +27,7 @@
 
             if (message?.Text != null)
             {
-                _logger.Information($"{Helpers.UserToString(message.From)}: {message.Text}");
+                _logger.Information($"{Helpers.Helpers.UserToString(message.From)}: {message.Text}");
             }
 
             if (message?.Entities != null)

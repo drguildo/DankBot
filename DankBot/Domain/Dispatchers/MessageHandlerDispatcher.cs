@@ -4,6 +4,7 @@
 
     using global::DankBot.Domain.Handlers;
     using global::DankBot.Domain.Handlers.Message;
+    using global::DankBot.Helpers;
 
     using Serilog;
 
