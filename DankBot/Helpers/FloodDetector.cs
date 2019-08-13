@@ -14,7 +14,7 @@ namespace DankBot.Helpers
 
         private readonly uint _timeRangeInSeconds;
         private readonly uint _messageThreshold;
-        private List<UserMessageTime> _userMessageTimes;
+        private readonly List<UserMessageTime> _userMessageTimes;
 
         public FloodDetector(uint timeRangeInSeconds, uint messageThreshold)
         {
