@@ -41,12 +41,7 @@ namespace DankBot.Helpers
 
             int count = _userMessageTimes.Count(t => t.UserId == userId);
 
-            if (count >= _messageThreshold)
-            {
-                return true;
-            }
-
-            return false;
+            return count >= _messageThreshold;
         }
 
         private void Prune()
