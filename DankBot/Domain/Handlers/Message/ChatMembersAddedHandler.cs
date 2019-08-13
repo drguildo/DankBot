@@ -1,5 +1,7 @@
 ﻿namespace DankBot.Domain.Handlers.Message
 {
+    using System.Diagnostics;
+
     using global::DankBot.Helpers;
 
     using Serilog;
@@ -24,7 +26,9 @@
 
         public void Handle(Message message)
         {
-            if (message?.NewChatMembers != null)
+            Debug.Assert(message != null);
+
+            if (message.NewChatMembers != null)
             {
                 foreach (User user in message.NewChatMembers)
                 {

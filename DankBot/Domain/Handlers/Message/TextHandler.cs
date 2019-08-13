@@ -1,5 +1,7 @@
 ﻿namespace DankBot.Domain.Handlers.Message
 {
+    using System.Diagnostics;
+
     using Serilog;
 
     using Telegram.Bot;
@@ -19,18 +21,20 @@
 
         public void Handle(Message message)
         {
-            if (message?.From.Id == _botClient.BotId)
+            Debug.Assert(message != null);
+
+            if (message.From.Id == _botClient.BotId)
             {
                 // Don't process messages sent by us.
                 return;
             }
 
-            if (message?.Text != null)
+            if (message.Text != null)
             {
                 _logger.Information($"{Helpers.Helpers.UserToString(message.From)}: {message.Text}");
             }
 
-            if (message?.Entities != null)
+            if (message.Entities != null)
             {
                 foreach (var entity in message.Entities)
                 {
