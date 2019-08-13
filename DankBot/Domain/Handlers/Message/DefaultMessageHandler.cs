@@ -1,6 +1,7 @@
 namespace DankBot.Domain.Handlers.Message
 {
     using Serilog;
+
     using Telegram.Bot.Types;
 
     public class DefaultMessageHandler : IHandler<Message>
