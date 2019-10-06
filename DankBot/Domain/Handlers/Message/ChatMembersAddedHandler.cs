@@ -13,6 +13,7 @@
     {
         private readonly ITelegramBotClient _botClient;
         private readonly ILogger _logger;
+        private readonly Spammers _spammers;
 
         private readonly int _myId;
 
@@ -22,6 +23,8 @@
             _logger = logger;
 
             _myId = _botClient.GetMeAsync().Id;
+
+            _spammers = new Spammers(_logger);
         }
 
         public void Handle(Message message)
@@ -42,6 +45,11 @@
                     if (user.IsBot)
                     {
                         _logger.Information($"{Helpers.UserToString(user)} is a bot!!1");
+                    }
+
+                    if (_spammers.IsSpammer(user.Id))
+                    {
+                        _logger.Information($"{Helpers.UserToString(user)} is a spammer!!1");
                     }
                 }
             }
