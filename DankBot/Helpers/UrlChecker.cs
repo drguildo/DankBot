@@ -15,6 +15,12 @@ namespace DankBot.Helpers
         public bool IsWhitelisted(string url)
         {
             var uri = new Uri(url);
+
+            if (uri.Host.StartsWith("www."))
+            {
+                return _whitelistHosts.Contains(uri.Host.Substring(4));
+            }
+
             return _whitelistHosts.Contains(uri.Host);
         }
     }

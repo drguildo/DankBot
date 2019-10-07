@@ -49,5 +49,19 @@ namespace DankBot.Tests
 
             Assert.False(urlChecker.IsWhitelisted("http://example.net/"));
         }
+
+        [Fact]
+        public void UrlChecker_UrlToCheckStartsWithWww_ShouldBeStrippedBeforeCheck()
+        {
+            ICollection<string> whitelistHosts = new List<string>
+            {
+                "example.com"
+            };
+
+            var urlChecker = new UrlChecker(whitelistHosts);
+
+            Assert.True(urlChecker.IsWhitelisted("http://www.example.com/"));
+            Assert.True(urlChecker.IsWhitelisted("http://www.example.com/foo"));
+        }
     }
 }
