@@ -27,7 +27,7 @@
             _spammers = new Spammers(_logger);
         }
 
-        public void Handle(Message message)
+        public async void Handle(Message message)
         {
             Debug.Assert(message != null);
 
@@ -47,7 +47,7 @@
                         _logger.Information($"{Helpers.UserToString(user)} is a bot!!1");
                     }
 
-                    if (_spammers.IsSpammer(user.Id))
+                    if (await _spammers.IsSpammerAsync(user.Id))
                     {
                         _logger.Information($"{Helpers.UserToString(user)} is a spammer!!1");
                     }
