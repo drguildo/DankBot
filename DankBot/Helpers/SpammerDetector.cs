@@ -5,7 +5,6 @@ namespace DankBot.Helpers
     using System.Threading.Tasks;
 
     using Newtonsoft.Json;
-    using Serilog;
 
     public class Result
     {
