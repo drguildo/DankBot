@@ -42,11 +42,6 @@
 
                     _logger.Information($"{Utilities.UserToString(user)} joined. Date is {message.Date}.");
 
-                    if (user.IsBot)
-                    {
-                        _logger.Information($"{Utilities.UserToString(user)} is a bot!!1");
-                    }
-
                     if (await _spammers.IsSpammerAsync(user.Id).ConfigureAwait(false))
                     {
                         _logger.Information($"{Utilities.UserToString(user)} is a spammer!!1");
