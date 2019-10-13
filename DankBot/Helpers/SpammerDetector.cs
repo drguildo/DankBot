@@ -20,13 +20,13 @@ namespace DankBot.Helpers
         public Result result { get; set; }
     }
 
-    public class Spammers
+    public class SpammerDetector
     {
         private const string API_ENDPOINT = "https://combot.org/api/cas/check?user_id=";
 
         private readonly ILogger _logger;
 
-        public Spammers(ILogger logger)
+        public SpammerDetector(ILogger logger)
         {
             _logger = logger;
         }
