@@ -24,13 +24,6 @@ namespace DankBot.Helpers
     {
         private const string API_ENDPOINT = "https://combot.org/api/cas/check?user_id=";
 
-        private readonly ILogger _logger;
-
-        public SpammerDetector(ILogger logger)
-        {
-            _logger = logger;
-        }
-
         public async Task<bool> IsSpammerAsync(int id)
         {
             using (var httpClient = new HttpClient())

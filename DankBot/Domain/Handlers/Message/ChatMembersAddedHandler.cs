@@ -24,7 +24,7 @@
 
             _myId = _botClient.GetMeAsync().Id;
 
-            _spammers = new SpammerDetector(_logger);
+            _spammers = new SpammerDetector();
         }
 
         public async void Handle(Message message)
