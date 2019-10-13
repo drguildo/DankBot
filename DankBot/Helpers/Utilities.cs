@@ -2,7 +2,7 @@
 {
     using Telegram.Bot.Types;
 
-    public static class Helpers
+    public static class Utilities
     {
         internal static string UserToString(User user)
         {

@@ -32,7 +32,7 @@
 
         public void Dispatch(Message message)
         {
-            _logger.Information($"{message.Type} message received from {Helpers.UserToString(message.From)} in chat ID {message.Chat.Id}.");
+            _logger.Information($"{message.Type} message received from {Utilities.UserToString(message.From)} in chat ID {message.Chat.Id}.");
 
             if (!_lookup.TryGetValue(message.Type, out IHandler<Message> handler))
             {
