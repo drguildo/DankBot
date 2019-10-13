@@ -8,15 +8,15 @@ namespace DankBot.Helpers
 
     public class Result
     {
-        public int offenses { get; set; }
-        public List<string> messages { get; set; }
-        public int time_added { get; set; }
+        public int Offenses { get; set; }
+        public List<string> Messages { get; set; }
+        public int TimeAdded { get; set; }
     }
 
     public class Spammer
     {
-        public bool ok { get; set; }
-        public Result result { get; set; }
+        public bool Ok { get; set; }
+        public Result Result { get; set; }
     }
 
     public class SpammerDetector
@@ -27,9 +27,9 @@ namespace DankBot.Helpers
         {
             using (var httpClient = new HttpClient())
             {
-                var json = await httpClient.GetStringAsync(API_ENDPOINT + id);
+                var json = await httpClient.GetStringAsync(API_ENDPOINT + id).ConfigureAwait(false);
                 Spammer spammer = JsonConvert.DeserializeObject<Spammer>(json);
-                return spammer.ok;
+                return spammer.Ok;
             }
         }
     }
