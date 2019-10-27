@@ -22,11 +22,16 @@
         {
             _logger = logger;
 
+            var spammerDetector = new SpammerDetector(_logger, new HashSet<string>()
+            {
+                @"t\.me/joinchat"
+            });
+
             _defaultHandler = new DefaultMessageHandler(_logger);
             _lookup = new Dictionary<MessageType, IHandler<Message>>
             {
-                { MessageType.ChatMembersAdded, new ChatMembersAddedHandler(botClient, _logger) },
-                { MessageType.Text, new TextHandler(botClient, _logger) }
+                { MessageType.ChatMembersAdded, new ChatMembersAddedHandler(botClient, spammerDetector, _logger) },
+                { MessageType.Text, new TextHandler(botClient, spammerDetector, _logger) }
             };
         }
 

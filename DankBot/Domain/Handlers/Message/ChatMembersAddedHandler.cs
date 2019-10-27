@@ -8,28 +8,33 @@
 
     using Telegram.Bot;
     using Telegram.Bot.Types;
+    using Telegram.Bot.Types.Enums;
 
     public class ChatMembersAddedHandler : IHandler<Message>
     {
         private readonly ITelegramBotClient _botClient;
+        private readonly ISpammerDetector _spammerDetector;
         private readonly ILogger _logger;
-        private readonly SpammerDetector _spammers;
 
         private readonly int _myId;
 
-        public ChatMembersAddedHandler(ITelegramBotClient botClient, ILogger logger)
+        public ChatMembersAddedHandler(ITelegramBotClient botClient, ISpammerDetector spammerDetector, ILogger logger)
         {
             _botClient = botClient;
+            _spammerDetector = spammerDetector;
             _logger = logger;
 
             _myId = _botClient.GetMeAsync().Id;
-
-            _spammers = new SpammerDetector();
         }
 
         public async void Handle(Message message)
         {
             Debug.Assert(message != null);
+
+            if (message.Chat.Type != ChatType.Group)
+            {
+                return;
+            }
 
             if (message.NewChatMembers != null)
             {
@@ -42,9 +47,15 @@
 
                     _logger.Information($"{Utilities.UserToString(user)} joined. Date is {message.Date}.");
 
-                    if (await _spammers.IsSpammerAsync(user.Id).ConfigureAwait(false))
+                    if (await _spammerDetector.IsSpammerAsync(user.Id).ConfigureAwait(false))
                     {
-                        _logger.Information($"{Utilities.UserToString(user)} is a spammer!!1");
+                        _logger.Information($"SPAMMER: {user.Id}");
+                        await _botClient.SendTextMessageAsync(message.Chat.Id, "Spammer detected. Removing...", replyToMessageId: message.MessageId).ConfigureAwait(false);
+                        await _botClient.KickChatMemberAsync(message.Chat.Id, user.Id).ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        _logger.Information($"NOT A KNOWN SPAMMER: {user.Id}");
                     }
                 }
             }
