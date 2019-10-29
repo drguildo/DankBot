@@ -20,8 +20,6 @@
                 userString.Append(" (").Append(user.Username).Append(')');
             }
 
-            userString.Append(" [").Append(user.Id).Append(']');
-
             return userString.ToString();
         }
     }
