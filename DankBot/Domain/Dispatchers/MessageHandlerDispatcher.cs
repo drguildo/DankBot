@@ -24,7 +24,8 @@
 
             var spammerDetector = new SpammerDetector(_logger, new HashSet<string>()
             {
-                @"t\.me/joinchat"
+                @"t\.me\/",
+                @"dex-start\.org"
             });
 
             _defaultHandler = new DefaultMessageHandler(_logger);
