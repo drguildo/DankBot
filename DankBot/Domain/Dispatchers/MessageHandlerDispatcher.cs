@@ -25,7 +25,8 @@
             var spammerDetector = new SpammerDetector(_logger, new HashSet<string>()
             {
                 @"t\.me\/",
-                @"dex-start\.org"
+                @"dex-start\.org",
+                @"gpay\.app\.goo\.gl"
             });
 
             _defaultHandler = new DefaultMessageHandler(_logger);
