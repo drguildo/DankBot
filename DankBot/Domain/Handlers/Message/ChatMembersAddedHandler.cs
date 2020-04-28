@@ -46,17 +46,6 @@
                     }
 
                     _logger.Information($"{Utilities.UserToString(user)} joined. Date is {message.Date}.");
-
-                    if (await _spammerDetector.IsSpammerAsync(user.Id).ConfigureAwait(false))
-                    {
-                        _logger.Information($"SPAMMER: {user.Id}");
-                        await _botClient.SendTextMessageAsync(message.Chat.Id, "Spammer detected. Removing...", replyToMessageId: message.MessageId).ConfigureAwait(false);
-                        await _botClient.KickChatMemberAsync(message.Chat.Id, user.Id).ConfigureAwait(false);
-                    }
-                    else
-                    {
-                        _logger.Information($"NOT A KNOWN SPAMMER: {user.Id}");
-                    }
                 }
             }
         }

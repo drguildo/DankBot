@@ -1,34 +1,15 @@
 namespace DankBot.Helpers
 {
     using System.Collections.Generic;
-    using System.Net.Http;
     using System.Text.RegularExpressions;
-    using System.Threading.Tasks;
-
-    using Newtonsoft.Json;
 
     using Serilog;
 
     using Telegram.Bot.Types;
     using Telegram.Bot.Types.Enums;
 
-    public class Result
-    {
-        public int Offenses { get; set; }
-        public List<string> Messages { get; set; }
-        public int TimeAdded { get; set; }
-    }
-
-    public class Spammer
-    {
-        public bool Ok { get; set; }
-        public Result Result { get; set; }
-    }
-
     public class SpammerDetector : ISpammerDetector
     {
-        private const string API_ENDPOINT = "https://combot.org/api/cas/check?user_id=";
-
         private readonly ICollection<string> _spamUrlRegularExpressions;
         private readonly ILogger _logger;
 
@@ -42,21 +23,6 @@ namespace DankBot.Helpers
         {
             _logger = logger;
             _spamUrlRegularExpressions = spamUrlRegularExpressions;
-        }
-
-        /// <summary>
-        /// Uses the Combot Anti-Spam (CAS) API to determine whether an account is a known spammer.
-        /// </summary>
-        /// <param name="id">The Telegram ID of the account to check.</param>
-        /// <returns>Whether the account is a known spammer.</returns>
-        public async Task<bool> IsSpammerAsync(int id)
-        {
-            using (var httpClient = new HttpClient())
-            {
-                var json = await httpClient.GetStringAsync(API_ENDPOINT + id).ConfigureAwait(false);
-                Spammer spammer = JsonConvert.DeserializeObject<Spammer>(json);
-                return spammer.Ok;
-            }
         }
 
         /// <summary>
